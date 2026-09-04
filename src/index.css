@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer utilities {
+  /* Keyframe Animations for Button Effects */
+  @keyframes btn-shimmer {
+    0% {
+      transform: translateX(-100%) skewX(-15deg);
+    }
+    100% {
+      transform: translateX(200%) skewX(-15deg);
+    }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 15px -3px rgba(99, 102, 241, 0.4), 0 0 25px -5px rgba(168, 85, 247, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 25px 2px rgba(99, 102, 241, 0.6), 0 0 35px 0px rgba(168, 85, 247, 0.5);
+    }
+  }
+
+  @keyframes float-subtle {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+/* Custom Interactive Button Effect Classes */
+.btn-effect-primary {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.35);
+}
+
+.btn-effect-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.28) 50%,
+    transparent 100%
+  );
+  transform: translateX(-150%) skewX(-20deg);
+  transition: none;
+  pointer-events: none;
+}
+
+.btn-effect-primary:hover::after {
+  animation: btn-shimmer 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.btn-effect-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -3px rgba(79, 70, 229, 0.45), 0 4px 12px -2px rgba(168, 85, 247, 0.4);
+}
+
+.btn-effect-primary:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+}
+
+/* Secondary Button Hover Elevation Effect */
+.btn-effect-secondary {
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-effect-secondary:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 16px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(99, 102, 241, 0.15);
+}
+
+.btn-effect-secondary:active {
+  transform: translateY(1px) scale(0.985);
+}
+
+/* Interactive Option Selection Button */
+.btn-option-card {
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-option-card:hover {
+  transform: translateY(-2px);
+}
+
+.btn-option-card:active {
+  transform: scale(0.985);
+}
+
+/* Glowing Pulsing Button for critical Actions */
+.btn-pulse-glow {
+  animation: pulse-glow 3s infinite;
+}

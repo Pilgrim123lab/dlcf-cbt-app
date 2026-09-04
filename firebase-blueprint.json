@@ -1,0 +1,165 @@
+{
+  "entities": {
+    "Candidate": {
+      "title": "Candidate",
+      "description": "Student candidate profile and academic preferences",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique candidate identifier"
+        },
+        "fullName": {
+          "type": "string",
+          "description": "Candidate full name",
+          "maxLength": 100
+        },
+        "targetCourse": {
+          "type": "string",
+          "description": "Desired course of study at OAU",
+          "maxLength": 150
+        },
+        "targetFaculty": {
+          "type": "string",
+          "description": "Target university faculty",
+          "maxLength": 150
+        },
+        "jambScore": {
+          "type": "number",
+          "description": "JAMB UTME score"
+        },
+        "subjectCombination": {
+          "type": "array",
+          "description": "Selected subject combination array"
+        },
+        "lastActiveDate": {
+          "type": "string",
+          "description": "Date of latest activity"
+        },
+        "avatarSeed": {
+          "type": "string",
+          "description": "Avatar seed for UI profile"
+        }
+      },
+      "required": ["id", "fullName"]
+    },
+    "ExamResult": {
+      "title": "ExamResult",
+      "description": "Completed CBT mock exam test score and subject breakdown",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique test result record identifier"
+        },
+        "candidateId": {
+          "type": "string",
+          "description": "Associated candidate profile identifier"
+        },
+        "studentName": {
+          "type": "string",
+          "description": "Candidate full name at time of test"
+        },
+        "examTitle": {
+          "type": "string",
+          "description": "Title of the completed exam session"
+        },
+        "examMode": {
+          "type": "string",
+          "description": "Mode of the exam session"
+        },
+        "totalQuestions": {
+          "type": "number",
+          "description": "Total question volume in test"
+        },
+        "totalAttempted": {
+          "type": "number",
+          "description": "Number of questions attempted"
+        },
+        "totalCorrect": {
+          "type": "number",
+          "description": "Number of correct answers"
+        },
+        "totalScore": {
+          "type": "number",
+          "description": "Total raw score / correct count"
+        },
+        "percentage": {
+          "type": "number",
+          "description": "Percentage accuracy achieved"
+        },
+        "durationMinutes": {
+          "type": "number",
+          "description": "Allocated test duration in minutes"
+        },
+        "timeTakenSeconds": {
+          "type": "number",
+          "description": "Actual duration spent on exam in seconds"
+        },
+        "date": {
+          "type": "string",
+          "description": "Formatted date string of test"
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "Unix timestamp in milliseconds"
+        },
+        "subjectBreakdowns": {
+          "type": "array",
+          "description": "Detailed breakdown per subject"
+        }
+      },
+      "required": ["candidateId", "totalQuestions", "totalCorrect"]
+    },
+    "CustomQuestion": {
+      "title": "CustomQuestion",
+      "description": "Uploaded past question item in question bank",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Question identifier"
+        },
+        "subjectId": {
+          "type": "string",
+          "description": "Subject key for the question"
+        },
+        "text": {
+          "type": "string",
+          "description": "Question prompt text"
+        },
+        "options": {
+          "type": "array",
+          "description": "Multiple choice options list"
+        },
+        "correctIndex": {
+          "type": "number",
+          "description": "Zero-based index of correct option"
+        },
+        "explanation": {
+          "type": "string",
+          "description": "Pedagogical explanation of the solution"
+        },
+        "year": {
+          "type": "number",
+          "description": "OAU Post UTME past exam year"
+        }
+      },
+      "required": ["subjectId", "text", "options", "correctIndex"]
+    }
+  },
+  "firestore": {
+    "/candidates/{candidateId}": {
+      "schema": "Candidate",
+      "description": "Collection storing candidate profiles and metadata"
+    },
+    "/examResults/{resultId}": {
+      "schema": "ExamResult",
+      "description": "Collection storing candidate CBT exam score submissions"
+    },
+    "/customQuestions/{questionId}": {
+      "schema": "CustomQuestion",
+      "description": "Collection storing uploaded custom past questions"
+    }
+  }
+}

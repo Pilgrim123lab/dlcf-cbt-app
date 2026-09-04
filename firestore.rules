@@ -1,0 +1,25 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Candidates profiles
+    match /candidates/{candidateId} {
+      allow read, write: if true;
+    }
+    
+    // Exam attempts & test results
+    match /examResults/{resultId} {
+      allow read, write: if true;
+    }
+
+    // Custom uploaded past questions bank
+    match /customQuestions/{questionId} {
+      allow read, write: if true;
+    }
+
+    // App system config (like admin pin backup if needed)
+    match /systemSettings/{settingId} {
+      allow read, write: if true;
+    }
+  }
+}
+
